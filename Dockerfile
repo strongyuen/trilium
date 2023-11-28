@@ -10,7 +10,11 @@ COPY . .
 COPY server-package.json package.json
 
 # Install app dependencies
-RUN set -x \
+RUN set -x 
+    && apk add tzdata \
+    && ls /usr/share/zoneinfo \
+    && cp /usr/share/zoneinfo/Asia/Hong_Kong /etc/localtime \
+    && echo "Asia/Hong_Kong" > /etc/timezone \
     && apk add --no-cache --virtual .build-dependencies \
         autoconf \
         automake \
