@@ -10,7 +10,7 @@ COPY . .
 COPY server-package.json package.json
 
 # Install app dependencies
-RUN set -x 
+RUN set -x \ 
     && apk add tzdata \
     && ls /usr/share/zoneinfo \
     && cp /usr/share/zoneinfo/Asia/Hong_Kong /etc/localtime \
