@@ -34,8 +34,8 @@ function hashedBlobId(content) {
 
     // we don't want such + and / in the IDs
     const kindaBase62Hash = base64Hash
-        .replace('+', 'X')
-        .replace('/', 'Y');
+        .replaceAll('+', 'X')
+        .replaceAll('/', 'Y');
 
     // 20 characters of base62 gives us ~120 bit of entropy which is plenty enough
     return kindaBase62Hash.substr(0, 20);
@@ -63,6 +63,8 @@ function isElectron() {
 }
 
 function hash(text) {
+    text = text.normalize();
+
     return crypto.createHash('sha1').update(text).digest('base64');
 }
 

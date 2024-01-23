@@ -17,6 +17,9 @@ const {sanitizeAttributeName} = require('./sanitize_attribute_name.js');
 const noteTypes = require('../services/note_types.js').getNoteTypeNames();
 
 class ConsistencyChecks {
+    /**
+     * @param autoFix - automatically fix all encountered problems. False is only for debugging during development (fail fast)
+     */
     constructor(autoFix) {
         this.autoFix = autoFix;
         this.unrecoveredConsistencyErrors = false;
@@ -467,7 +470,7 @@ class ConsistencyChecks {
                     WHERE blobs.blobId IS NULL`,
             ({revisionId, blobId}) => {
                 if (this.autoFix) {
-                    revisionService.eraseRevisions([revisionId]);
+                    eraseService.eraseRevisions([revisionId]);
 
                     this.reloadNeeded = true;
 
